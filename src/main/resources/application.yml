@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/storage?useUnicode=true&characterEncoding=utf-8&SSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123
+    tomcat:
+      max-active: 30
+      max-wait: 1000
+      max-idle: 20
+      min-idle: 10
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+        
+logging:
+  level:
+    com.cqupt.eepm.storage: debug
+  file: log/storage.log
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8080

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqupt.eepm.storage.dao.si.storageMapper">
+  <resultMap id="BaseResultMap" type="com.cqupt.eepm.storage.dao.storage">
+    <result column="evidenceID" jdbcType="INTEGER" property="evidenceid" />
+    <result column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+    <result column="md5" jdbcType="VARCHAR" property="md5" />
+    <result column="directory" jdbcType="VARCHAR" property="directory" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.cqupt.eepm.storage.dao.storageWithBLOBs">
+    <result column="evidence" jdbcType="LONGVARCHAR" property="evidence" />
+    <result column="secret_key" jdbcType="LONGVARCHAR" property="secretKey" />
+    <result column="blockNumber" jdbcType="LONGVARCHAR" property="blocknumber" />
+  </resultMap>
+  <sql id="Blob_Column_List">
+    evidence, secret_key, blockNumber
+  </sql>
+  <insert id="insert" parameterType="com.cqupt.eepm.storage.dao.storageWithBLOBs">
+    insert into evidence_info (evidenceID, userID, uploadTime, 
+      md5, directory, evidence, 
+      secret_key, blockNumber)
+    values (#{evidenceid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{uploadtime,jdbcType=TIMESTAMP}, 
+      #{md5,jdbcType=VARCHAR}, #{directory,jdbcType=VARCHAR}, #{evidence,jdbcType=LONGVARCHAR}, 
+      #{secretKey,jdbcType=LONGVARCHAR}, #{blocknumber,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqupt.eepm.storage.dao.storageWithBLOBs">
+    insert into evidence_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evidenceid != null">
+        evidenceID,
+      </if>
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+      <if test="md5 != null">
+        md5,
+      </if>
+      <if test="directory != null">
+        directory,
+      </if>
+      <if test="evidence != null">
+        evidence,
+      </if>
+      <if test="secretKey != null">
+        secret_key,
+      </if>
+      <if test="blocknumber != null">
+        blockNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evidenceid != null">
+        #{evidenceid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="md5 != null">
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="directory != null">
+        #{directory,jdbcType=VARCHAR},
+      </if>
+      <if test="evidence != null">
+        #{evidence,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="secretKey != null">
+        #{secretKey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blocknumber != null">
+        #{blocknumber,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
